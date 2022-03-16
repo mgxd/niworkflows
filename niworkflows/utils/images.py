@@ -229,7 +229,7 @@ def resample_by_spacing(in_file, zooms, order=3, clip=True, smooth=False):
     card[:3, 3] = -0.5 * extent
 
     # Cover the FoV with the new grid
-    new_size = np.ceil(extent / zooms).astype(int)
+    new_size = np.rint(extent / zooms).astype(int)
     offset = (extent - np.diag(zooms).dot(new_size)) * 0.5
     new_card = nb.affines.from_matvec(np.diag(zooms), card[:3, 3] + offset)
 

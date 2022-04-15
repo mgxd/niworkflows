@@ -508,8 +508,9 @@ def init_enhance_and_skullstrip_bold_wf(
                 ("reverse_invert_flags", "invert_transform_flags"),
                 ("reverse_transforms", "transforms"),
             ]),
-            (map_brainmask, binarize_mask, [("output_image", "in_file")]),
-            (binarize_mask, pre_dilate, [("out_mask", "in_file")]),
+            #(map_brainmask, binarize_mask, [("output_image", "in_file")]),
+            #(binarize_mask, pre_dilate, [("out_mask", "in_file")]),
+            (map_brainmask, pre_dilate, [("output_image", "in_file")]),
         ])
         # fmt: on
     else:
@@ -523,7 +524,7 @@ def init_enhance_and_skullstrip_bold_wf(
     workflow.connect([
         (inputnode, check_hdr, [("in_file", "reference")]),
         (pre_dilate, check_hdr, [("out_file", "in_file")]),
-        (check_hdr, n4_correct, [("out_file", "mask_image")]),
+        (check_hdr, n4_correct, [("out_file", "weight_image")]),
         (inputnode, n4_correct, [("in_file", "input_image")]),
         (inputnode, fixhdr_unifize, [("in_file", "hdr_file")]),
         (inputnode, fixhdr_skullstrip2, [("in_file", "hdr_file")]),
